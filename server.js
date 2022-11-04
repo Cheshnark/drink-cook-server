@@ -11,6 +11,10 @@ app.get('/', (req,res) => {
     res.json('hi');
 });
 
+app.get('/fun', (req,res) => {
+    res.json('fun');
+});
+
 app.get('/food', (req,res) => {
 
     const options = {
