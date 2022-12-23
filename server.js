@@ -4,6 +4,7 @@ const axios = require('axios');
 require('dotenv').config();
 
 const app = express();
+app.use(cors({origin: '*'}));
 
 app.use(cors());
 
@@ -25,6 +26,7 @@ app.get('/food', (req,res) => {
           'X-RapidAPI-Host': 'tasty.p.rapidapi.com'
         },
         params: {from: '0', size: '20', q:''},
+        mode: 'no-cors'
       };
       
       axios.request(options).then(function (response) {
@@ -40,6 +42,6 @@ if(port==null || port==""){
   port=8000;
 };
 
-app.listen(port , () => {
+app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 })
