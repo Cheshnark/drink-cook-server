@@ -26,7 +26,7 @@ app.get('/food/:recipe', (req,res) => {
         }
     };
     
-    fetch(`https://tasty.p.rapidapi.com/recipes/list?from=0&size=20&q=${params}?rapidapi-key=${process.env.REACT_APP_RAPID_API_KEY}`, options)
+    fetch(`https://tasty.p.rapidapi.com/recipes/list?rapidapi-key=${process.env.REACT_APP_RAPID_API_KEY}?from=0&size=20&q=${params}`, options)
         .then(response => response.json())
         .then(response => res.json(response))
         .catch(err => console.error(err));
