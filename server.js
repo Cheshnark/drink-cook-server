@@ -22,12 +22,11 @@ app.get('/food/:recipe', (req,res) => {
     const options = {
         method: 'GET',
         headers: {
-            'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY,
             'X-RapidAPI-Host': 'tasty.p.rapidapi.com'
         }
     };
     
-    fetch(`https://tasty.p.rapidapi.com/recipes/list?from=0&size=20&q=${params}`, options)
+    fetch(`https://tasty.p.rapidapi.com/recipes/list?from=0&size=20&q=${params}?rapidapi-key=${process.env.REACT_APP_RAPID_API_KEY}`, options)
         .then(response => response.json())
         .then(response => res.json(response))
         .catch(err => console.error(err));
@@ -41,6 +40,6 @@ if(port==null || port==""){
   port=8000;
 };
 
-app.listen(port , () => {
+app.listen(8000 , () => {
     console.log(`Server running on port ${port}`);
 })
