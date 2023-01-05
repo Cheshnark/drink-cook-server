@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const fetch = (...args) =>
-	import('node-fetch').then(({default: fetch}) => fetch(...args));
+const axios = require('axios');
 require('dotenv').config();
 
 const app = express();
@@ -21,15 +20,16 @@ app.get('/food/:recipe', (req,res) => {
 
     const options = {
         method: 'GET',
-        headers: {
-            'X-RapidAPI-Host': 'tasty.p.rapidapi.com'
-        }
-    };
-    
-    fetch(`https://tasty.p.rapidapi.com/recipes/list?rapidapi-key=${process.env.REACT_APP_RAPID_API_KEY}?from=0&size=20&q=${params}`, options)
-        .then(response => response.json())
-        .then(response => res.json(response))
-        .catch(err => console.error(err));
+        url: 'https://tasty.p.rapidapi.com/recipes/list',
+        params: {from: '0', size: '20', q: `${params}`},
+        headers: {'X-RapidAPI-Key': process.env.REACT_APP_RAPID_API_KEY, 'X-RapidAPI-Host': 'tasty.p.rapidapi.com'}
+      };
+      
+      axios.request(options).then(function (response) {
+          res.status(200).json(response.data)
+      }).catch(function (error) {
+          console.error(error);
+      });
 
 });
 
